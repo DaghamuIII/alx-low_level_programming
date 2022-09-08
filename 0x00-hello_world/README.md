@@ -1,0 +1,1 @@
+This directory contain all foundation C programming concept

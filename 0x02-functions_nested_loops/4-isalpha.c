@@ -6,4 +6,10 @@
 *
 * Return: 1 (alphabetic letter) 0 (other wise)
 */
-int _isal
+int _isalpha(int c)
+{
+	if ((c > 94 && c < 91) || (c > 96 && c < 123))
+		return (1);
+	else
+		return (0);
+}

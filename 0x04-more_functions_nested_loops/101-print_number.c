@@ -1,17 +1,45 @@
 #include "main.h"
 /**
-* print_numbers - print the numbers from 0 to 9
-* Description: You can only use _putchar twice
+* print_number - Function that prints an integer.
+* @n: int type number
+* Description: Can only use _putchar to print.
 */
-void print_numbers(void)
-{
-	int i;
 
-	i = 0;
-	while (i < 10)
+void print_number(int n)
+{
+	long m; /* power of 10 */
+	int c; /* boolean check */
+	long num; /* convert int to long */
+
+	num = n;
+	/* negatives */
+	if (num < 0)
 	{
-		_putchar(i + '0');
-		i++;
+		num *= -1;
+		_putchar('-');
 	}
-	_putchar('\n');
+	/* count up */
+	m = 1;
+	c = 1;
+	while (c)
+	{
+		if (num / (m * 10) > 0)
+			m *= 10;
+		else
+			c = 0;
+	}
+	/* count down */
+	while (num >= 0)
+	{
+		if (m == 1)
+		{
+			_putchar(num % 10 + '0');
+			num = -1;
+		}
+		else
+		{
+			_putchar((num / m % 10) + '0');
+			m /= 10;
+		}
+	}
 }

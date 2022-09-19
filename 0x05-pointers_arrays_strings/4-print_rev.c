@@ -15,6 +15,7 @@ void print_rev(char *s)
 	str_len = i;
 
 	/* printing in reverse */
+
 	int j;
 
 	for (j = (str_len - 1); j >= 0; j--)

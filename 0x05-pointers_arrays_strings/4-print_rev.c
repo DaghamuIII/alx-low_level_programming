@@ -8,10 +8,11 @@ void print_rev(char *s)
 {
 	/* to find number of cahracter */
 	int i;
+	int str_len;
 
 	for (i = 0; s[i] != '\0'; i++)
 		;
-	int str_len = i;
+	str_len = i;
 
 	/* printing in reverse */
 	int j;

@@ -57,6 +57,7 @@ char *add_strings(char *n1, char *n2, char *r, int r_index)
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int index, n1_len = 0, n2_len = 0;
+
 	for (index = 0; *(n1 + index); index++)
 		n1_len++;
 	for (index = 0; *(n2 + index); index++)

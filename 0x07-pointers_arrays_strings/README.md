@@ -1,0 +1,1 @@
+This Directory Containt solutions to the folllowing task under pointers array and strigs project

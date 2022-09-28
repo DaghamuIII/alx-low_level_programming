@@ -13,3 +13,15 @@ int check(char *s, int start, int end, int pair);
 int is_palindrome(char *s);
 int checker(char *s1, char *s2, int a, int b, int wildUsed);
 int wildcmp(char *s1, char *s2);
+
+
+
+int compare(char*, char*);
+
+int wildcmp(char*, char*);
+
+int full_compare(char*, char*, char*, char *);
+
+int find_next_c(char**, char*);
+
+int find_after_sc(char**, char*,char)

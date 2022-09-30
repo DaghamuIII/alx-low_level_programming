@@ -1,0 +1,1 @@
+This Directory Contains All solutions to Alx SE carriculum Argc/Argv project

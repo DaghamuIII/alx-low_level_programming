@@ -9,30 +9,39 @@
 * Return: number of nodes in list. If fails, exit with status 98.
 */
 
+#include "lists.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ * print_listint_safe - Prints a linked list even if it has a loop.
+ * @head: Pointer to the head of the list
+ * Return: Number of nodes printed
+ */
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *current;
-	size_t count;
-	const listint_t *hold;
+    const listint_t *slow = head, *fast = head;
+    size_t count = 0;
 
-	current = head;
-	if (current == NULL)
-		exit(98);
+    while (head)
+    {
+        printf("[%p] %d\n", (void *)head, head->n);
+        count++;
 
-	count = 0;
-	while (current != NULL)
-	{
-		hold = current;
-		current = current->next;
-		count++;
-		printf("[%p] %d\n", (void *)hold, hold->n);
+        head = head->next;
 
-		if (hold < current)
-		{
-			printf("-> [%p] %d\n", (void *)current, current->n);
-			break;
-		}
-	}
+        if (fast && fast->next)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
 
-	return (count);
+        if (slow == fast && count > 1)
+        {
+            printf("-> [%p] %d\n", (void *)head, head->n);
+            break;
+        }
+    }
+
+    return (count);
 }

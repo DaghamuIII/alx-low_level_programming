@@ -3,52 +3,41 @@
 #include <stdlib.h>
 
 /**
- * print_listint_safe - Prints a linked list even if it has a loop.
- * @head: Pointer to the head of the list
- * Return: Number of nodes printed
+ * print_listint_safe - Print a `listint_t` linked list including mem addresses
+ * @head: head of linked list
+ * Description: Go through the list only once.
+ * Return: number of nodes in list. If fails, exit with status 98.
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *slow = head, *fast = head;
+	const listint_t *current = head;
 	size_t count = 0;
+	const listint_t **visited;
+	size_t i;
 
-	/* Detect loop */
-	while (fast && fast->next)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-		if (slow == fast)
-			break;
-	}
+	visited = malloc(sizeof(listint_t *) * 1024);
+	if (visited == NULL)
+		exit(98);
 
-	/* If no loop, print normally */
-	if (!fast || !fast->next)
+	while (current != NULL)
 	{
-		while (head)
+		for (i = 0; i < count; i++)
 		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
-			count++;
+			if (current == visited[i])
+			{
+				printf("-> [%p] %d\n", (void *)current, current->n);
+				free(visited);
+				return (count);
+			}
 		}
-		return (count);
-	}
 
-	/* Loop detected: find start of loop */
-	slow = head;
-	while (slow != fast)
-	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		slow = slow->next;
-		fast = fast->next;
+		visited[count] = current;
 		count++;
+
+		printf("[%p] %d\n", (void *)current, current->n);
+		current = current->next;
 	}
 
-	/* Print the start of loop once */
-	printf("[%p] %d\n", (void *)slow, slow->n);
-	count++;
-
-	/* Indicate loop */
-	printf("-> [%p] %d\n", (void *)slow, slow->n);
-
+	free(visited);
 	return (count);
 }

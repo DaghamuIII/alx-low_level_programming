@@ -2,40 +2,41 @@
 #include <stdlib.h>
 
 /**
- * free_listint_safe - Frees a listint_t list (even if there's a loop)
- * @h: Pointer to the address of the head
+ * free_listint_safe - Frees a listint_t linked list safely (even with loops)
+ * @h: Double pointer to the head of the list
  * Return: Number of nodes freed
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *current = *h;
-	listint_t **visited;
-	size_t i, count = 0;
+	listint_t *current, *next;
+	size_t count = 0;
+	void *marker[1024];  /* Static array for visited pointers */
+	size_t i;
 
-	if (!h || !*h)
+	if (h == NULL || *h == NULL)
 		return (0);
 
-	visited = malloc(sizeof(listint_t *) * 1024); // Max 1024 nodes for now
-	if (!visited)
-		exit(98);
-
-	while (current)
+	current = *h;
+	while (current != NULL)
 	{
+		/* Check if we've already seen this node */
 		for (i = 0; i < count; i++)
 		{
-			if (current == visited[i])
+			if (marker[i] == current)
 			{
-				free(visited);
 				*h = NULL;
-				return (count);
+				return (count); /* Loop detected */
 			}
 		}
-		visited[count++] = current;
-		listint_t *temp = current;
-		current = current->next;
-		free(temp);
+
+		/* Store current address to track */
+		marker[count++] = current;
+
+		next = current->next;
+		free(current);
+		current = next;
 	}
-	free(visited);
+
 	*h = NULL;
 	return (count);
 }
